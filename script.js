@@ -5,13 +5,16 @@ const panel = document.querySelector('#panel')
 let selectedRating = 'Satisfied'
 
 ratingsContainer.addEventListener('click', (e) => {
-    if(e.target.parentNode.classList.contains('rating')) {
-        removeActive()
-        e.target.parentNode.classList.add('active')
-        selectedRating = e.target.nextElementSibling.innerHTML
-    } 
-})
+    const rating = e.target.closest('.rating')
 
+    if (rating && ratingsContainer.contains(rating)) {
+        removeActive()
+        rating.classList.add('active')
+        const label = rating.querySelector('small')
+        selectedRating = label ? label.textContent : selectedRating
+    }
+})
+    
 sendBtn.addEventListener('click', (e) => {
     panel.innerHTML = `
         <i class="fas fa-heart"></i>
